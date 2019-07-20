@@ -1,0 +1,11 @@
+__pycache__/
+.vscode/
+venv/
+db.sqlite3
+
+
+node_modules/
+build/
+staticfiles/
+
+package-lock.json
