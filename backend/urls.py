@@ -19,7 +19,19 @@ from rest_framework import routers
 from ATS_v1 import views
 
 router = routers.DefaultRouter()
-router.register(r'Industry', views.IndustryView, 'Industry') 
+router.register(r'industry', views.IndustryView, 'Industry') 
+router.register(r'company', views.CompanyView, 'Company') 
+router.register(r'role', views.RoleView, 'Role') 
+router.register(r'employee', views.EmployeeView, 'Employee')
+router.register(r'department', views.DepartmentView, 'Department')
+router.register(r'job_status', views.Job_StatusView, 'Job_Status')
+router.register(r'job', views.JobView, 'Job')
+router.register(r'candidate', views.CandidateView, 'Candidate')
+router.register(r'candidate_status', views.Candidate_StatusView, 'Candidate_Status')
+router.register(r'source', views.SourceView, 'Source')
+router.register(r'candidate_consideration', views.Candidate_ConsiderationView, 'Candidate_Consideration')
+router.register(r'document', views.DocumentView, 'Document')
+router.register(r'interview', views.InterviewView, 'Interview')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

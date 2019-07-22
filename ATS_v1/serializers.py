@@ -18,10 +18,7 @@ class RoleSerializer(serializers.ModelSerializer):
         model = Role
         fields = ('id', 'name', 'created_at', 'updated_at')
 
-class EmployeeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Employee
-        fields = ('id', 'company', 'first_name', 'last_name', 'email', 'password',  'hiring_role', 'created_at', 'updated_at')
+
 
 class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,11 +31,31 @@ class Job_StatusSerializer(serializers.ModelSerializer):
         fields = ('id', 'progress', 'created_at', 'updated_at')
 
 class JobSerializer(serializers.ModelSerializer):
+    hiring_team = serializers.PrimaryKeyRelatedField(queryset=Employee.objects.all(), many=True)
+
     class Meta:
         model = Job
         fields = ('id', 'company', 'title', 'description', 'hiring_team', 'department',  'req_id', 'status', 'created_by', 'edited_by',  'created_at', 'updated_at')
 
+class InterviewSerializer(serializers.ModelSerializer):
+    interviewers = serializers.PrimaryKeyRelatedField(queryset=Employee.objects.all(), many=True)
+
+    class Meta:
+        model = Interview
+        fields = ('id', 'date_scheduled_for', 'start_time', 'end_time', 'interviewee', 'interviewers', 'created_at', 'updated_at')
+
+class EmployeeSerializer(serializers.ModelSerializer):
+    interviewing_schedule = InterviewSerializer(many=True, required=False)
+    hiring_for_job = JobSerializer(many=True, required=False)
+
+    class Meta:
+        model = Employee
+        fields = ('id', 'company', 'first_name', 'last_name', 'email', 'password',  'hiring_role', 'hiring_for_job', 'interviewing_schedule', 'created_at', 'updated_at')
+
 class CandidateSerializer(serializers.ModelSerializer):
+    linkedIn_url = serializers.URLField(required=False)
+    website_url = serializers.URLField(required=False)
+
     class Meta:
         model = Candidate
         fields = ('id','first_name', 'last_name', 'email', 'linkedIn_url',  'website_url', 'created_at', 'updated_at')
@@ -63,7 +80,7 @@ class DocumentSerializer(serializers.ModelSerializer):
         model = Document
         fields = ('id', 'applicant', 'doc_upload' ,'created_at', 'updated_at')
 
-class InterviewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Interview
-        fields = ('id', 'date_scheduled_for', 'start_time', 'end_time', 'interviewee', 'interviewers', 'created_at', 'updated_at')
+# class InterviewersSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = interviewers
+
