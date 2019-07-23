@@ -4,6 +4,7 @@ import { BrowserRouter as  Router, Route, Switch, Link } from 'react-router-dom'
 import './App.css';
 import axios from "axios";
 import Footer from './components/layout/Footer';
+import Landing from './components/layout/Landing';
 
 const App= () => {
 
@@ -11,51 +12,11 @@ const App= () => {
     <Router>
     <Fragment>
     <div className="wrapper">
-    {/* <Navbar/> */}
-    <nav>
-      <a href="">Company Logo</a>
-      <a href="#features">Features</a>
-      <a href="#testimonials">Testimonials</a>
-      <a href="#blog">Blog</a>
-      <a href="#pricing">Pricing</a>
-    </nav>
-    {/* <Route exact path='/' component={Landing} /> */}
-    <h1>Landing page: Supercharge Your Recruiting Team </h1>
+      {/* <Navbar/> */}
+      
 
-    <section className = "container">
-    <h1>Alert </h1>
-
-    {/* <Alert/> */}
-      <Switch>
-        <Route exact path = "/login"/>
-        <Route exact path = "/demo"/>
-        {/* <Route exact path = "/login" component = {Login}/>
-        <Route exact path = "/register" component = {Register}/>
-        <Route exact path = "/profiles" component = {Profiles}/>
-        <Route exact path = "/profile/:id" component = {Profile}/>
-
-        <PrivateRoute exact path = "/dashboard" component = {Dashboard}/>
-
-        <PrivateRoute exact path = "/create-profile" component = {CreateProfile}/>
-        <PrivateRoute exact path = "/edit-profile" component = {EditProfile}/> */}
-      </Switch>
-    </section>
-
-    <section id= "features">
-      <h1>Features</h1>
-    </section>
-
-    <section id= "testimonials">
-      <h1>Testimonials</h1>
-    </section>
-
-    <section id= "blog">
-      <h1>Blog</h1>
-    </section>
-
-    <section id= "pricing">
-      <h1>Pricing</h1>
-    </section>
+      {/* <Route exact path='/' component={Landing} /> */}
+      <Route path = "/" component={Landing}/>
     </div>
     </Fragment>
     <Footer />
