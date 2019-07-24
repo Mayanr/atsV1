@@ -8,7 +8,6 @@ import Landing from './components/layout/Landing';
 import Dashboard from './components/dashboard/Dashboard';
 
 const App= () => {
-
   return (
     <Router>
       <div className="wrapper">

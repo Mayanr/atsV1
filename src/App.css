@@ -77,3 +77,44 @@ button, .linkText{
 .container {
   text-align: center;
 }
+
+/* Dashboard layout*/
+#dashboard {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-areas:
+    'topNav topNav topNav topNav topNav topNav'
+    'sideNav stats stats stats stats stats'
+    'sideNav data data data data data'
+}
+
+#topNav {
+  grid-area: topNav;
+  background-color: lightsteelblue;
+  padding: 1%;
+}
+
+#logoutLink {
+  float: right;
+  top: 10px;
+}
+
+#sideNav {
+  grid-area: sideNav;
+  padding: 3%;
+  background-color: lightsteelblue;
+}
+
+#stats {
+  grid-area: stats;
+  padding: 3%;
+  background-color: lightgray;
+  margin: 3% 0 0 3%;
+}
+
+#data {
+  grid-area: data;
+  border: 1px solid black;
+  padding: 3%;
+  margin: 1% 0 0 3%;
+}
