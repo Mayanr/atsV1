@@ -6,6 +6,8 @@ import axios from "axios";
 import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
 import Dashboard from './components/dashboard/Dashboard';
+import Jobs from './components/data-content/Jobs';
+import Candidates from './components/data-content/Candidates';
 
 const App= () => {
   return (
@@ -14,6 +16,9 @@ const App= () => {
         <Route path = "/" component={Landing}/>
       <Switch>
         <Route exact path = "/dashboard" component = {Dashboard}/>
+        {/* <Route exact path = "/jobs" component = {Jobs}/>
+        <Route exact path = "/candidates" component = {Candidates}/> */}
+
       </Switch>
       </div>
       <Footer />

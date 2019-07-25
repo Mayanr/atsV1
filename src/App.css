@@ -1,21 +1,27 @@
-/* my styles */
+/* global layout */
 .wrapper {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   min-height: 90vh;
-  max-width: 90vw;
-  margin-top: 2%;
+  max-width: 95vw;
+  /* margin-top: 1%; */
 }
 .content {
   flex-grow: 1;
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 15px;
+}
+
 button, .linkText{
-  padding: 5px;;
-  background: #4B2187;
+  padding: 8px;
+  background: blue;
   color: white;
-  font-family: Federo;
   border: none;
   border-radius: 10px;
   font-size: 15px;
@@ -23,7 +29,8 @@ button, .linkText{
   word-spacing: 4px;
   text-align: center;
   margin: 2%;
-  border: 2px solid #4B2187;
+  /* border: 2px solid #4B2187; */
+  text-decoration: none;
 }
 
 .footer {
@@ -41,7 +48,8 @@ button, .linkText{
 #heading {
   display: flex;
   justify-content: space-around;
-  height: 100px;
+  height: 70px;
+  margin-top: 1%;
 }
 
 #mainTitle {
@@ -88,6 +96,7 @@ button, .linkText{
     'sideNav data data data data data'
 }
 
+/* top */
 #topNav {
   grid-area: topNav;
   background-color: lightsteelblue;
@@ -99,22 +108,36 @@ button, .linkText{
   top: 10px;
 }
 
+/* left side */
 #sideNav {
   grid-area: sideNav;
   padding: 3%;
   background-color: lightsteelblue;
 }
 
+#sideNav ul {
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  justify-content: space-around;
+}
+
+/* section#sideNav ul li a.linkText{
+  min-width: 100px;
+} */
+
+/* main, central content */
 #stats {
   grid-area: stats;
   padding: 3%;
   background-color: lightgray;
-  margin: 3% 0 0 3%;
+  margin: 1% 0 0 1%;
 }
 
 #data {
   grid-area: data;
   border: 1px solid black;
   padding: 3%;
-  margin: 1% 0 0 3%;
+  margin: 1% 0 0 1%;
+  /* min-height: 200px; */
 }

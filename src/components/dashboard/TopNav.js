@@ -10,7 +10,7 @@ class TopNav extends Component {
             <Fragment>
 
                 <section id = "topNav">
-                <Link to="" id="logoutLink">Logout</Link>
+                <Link to="" id="logoutLink" className="linkText">Logout</Link>
                 {/* <h1>TopNav Component</h1> */}
                 <h2>Welcome {this.props.name} {this.props.l_name}</h2>
                 <h3>{this.props.role} at {this.props.co}</h3>

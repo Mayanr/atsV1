@@ -1,9 +1,14 @@
 import React, { Fragment, Component } from 'react';
 import axios from "axios";
+import { BrowserRouter as  Router, Route, Switch, Link } from 'react-router-dom';
 
 import SideNav from './SideNav';
 import Stats from './Stats';
 import TopNav from './TopNav';
+import Jobs from '../data-content/Jobs';
+import Candidates from '../data-content/Candidates';
+import Reports from '../data-content/Reports';
+
 
 class Dashboard extends Component {
     constructor() {
@@ -62,6 +67,7 @@ class Dashboard extends Component {
         //     this.setState({user:{name: "Greg", company: "Disney", role: "Recruiter"}})
         // }, 5000)
         return(
+            <Router>
             <div id="dashboard">
             {/* Name: {this.state.name} {this.state.l_name} <br/>
             Co: {this.state.company}<br/>
@@ -69,9 +75,15 @@ class Dashboard extends Component {
                 <TopNav id="topNav" name={this.state.name} l_name={this.state.l_name} co={this.state.company} role= {this.state.role}/>
                 <SideNav id="sideNav"/>
                 <Stats id="stats"/>
-                <div id="data">This will eventually be the data Component <br/>
-                Maecenas condimentum scelerisque quam. Pellentesque ut nunc massa. Cras vestibulum elit ut sem maximus, vel porttitor erat posuere. In eget mauris eros. Nam finibus volutpat elit, vel cursus urna vulputate sed. Proin porta libero interdum neque commodo lobortis. Donec volutpat, diam non mollis efficitur, odio elit efficitur dui, at accumsan nisi quam eget odio. Aliquam rutrum posuere nunc, nec consectetur nunc pretium in. Pellentesque sit amet est ac odio imperdiet molestie quis ultricies justo. Integer eget egestas quam, a porta sapien. In hac habitasse platea dictumst. Sed ut mi blandit, gravida orci in, convallis ante. Nunc finibus diam ac ante eleifend, sed elementum purus condimentum.</div>
+                <div id="data">
+                    <Route  path = "/jobs"  component={Jobs} />
+                <Switch>
+                    <Route exact path = "/candidates" component={Candidates} />
+                    <Route exact path = "/reports" component={Reports} />
+                </Switch>
+                </div>
             </div>
+            </Router>
         )
     }
 }
