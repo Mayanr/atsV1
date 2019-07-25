@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 
 from rest_framework import viewsets
 from .serializers import *
@@ -31,6 +31,12 @@ class Job_StatusView(viewsets.ModelViewSet):
 class JobView(viewsets.ModelViewSet):
     serializer_class = JobSerializer
     queryset = Job.objects.all()
+
+def AllCompanyJobsView(self, c_id):
+    # serializer_class = JobSerializer
+    CoJobs = Job.objects.filter(company = c_id).values()
+    return HttpResponse (CoJobs)
+
 
 class CandidateView(viewsets.ModelViewSet):
     serializer_class = CandidateSerializer

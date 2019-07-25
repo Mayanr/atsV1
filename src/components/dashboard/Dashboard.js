@@ -30,7 +30,7 @@ class Dashboard extends Component {
         this.employeeAccount();
     }
     employeeAccount = () => {
-    const userID = 2;
+    const userID = 1;
     axios.get(`/api/employee/${userID}/`)
         .then(res => {
             this.setState({ 
@@ -74,17 +74,16 @@ class Dashboard extends Component {
     //   };
 
     coJobs =(coID)=> {
-        axios.get(`/api/job/`, {params:
-        {
-            job:{
-                company: coID
-            } 
-        }})
+        axios.get(`/api/jobs/${coID}`)
         .then(res=>
             this.setState({
                 jobs: JSON.stringify(res.data)
             }))
             .catch(err => console.log(err));
+    }
+
+    displayJobs = status => {
+
     }
     // obtain all candidates that have applied to roles at this co.
     
