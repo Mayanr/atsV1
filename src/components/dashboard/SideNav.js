@@ -9,10 +9,9 @@ const SideNav = () => {
             <section id = "sideNav">
             <ul>
                 <li><NavLink to="/jobs" className="linkText">Jobs</NavLink></li>
-                {/* <li><button className="linkText" onClick={Jobs}>Jobs</button></li> */}
-                <li><Link to="/candidates" className="linkText">Candidates</Link></li>
-                <li><Link to="/reports" className="linkText">Reports</Link></li>
-                <li><Link to="/adminMngr" className="linkText">Admin</Link></li>
+                <li><NavLink to="/candidates" className="linkText">Candidates</NavLink></li>
+                <li><NavLink to="/reports" className="linkText">Reports</NavLink></li>
+                <li><NavLink to="/adminMngr" className="linkText">Admin</NavLink></li>
             </ul>
             </section>
             

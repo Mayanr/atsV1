@@ -18,7 +18,9 @@ class Dashboard extends Component {
             name: "",
             l_name:"",
             email:"",
-            role: ""
+            role: "",
+            jobs : [],
+            candidates:[]
         };
       }
 
@@ -26,10 +28,9 @@ class Dashboard extends Component {
     // retreive data from api
     componentDidMount() {
         this.employeeAccount();
-        // this.companyList();
     }
     employeeAccount = () => {
-    const userID = 1;
+    const userID = 2;
     axios.get(`/api/employee/${userID}/`)
         .then(res => {
             this.setState({ 
@@ -39,11 +40,12 @@ class Dashboard extends Component {
         })
         this.companyName(res.data.company)
         this.employeeRole(res.data.hiring_role)
+        this.coJobs(res.data.company);
     })
         .catch(err => console.log(err));
     };
 
-    companyName = (coID) =>{
+    companyName = (coID) => {
     axios.get(`/api/company/${coID}/`)
             .then(res=>
                 this.setState({
@@ -62,6 +64,30 @@ class Dashboard extends Component {
             
             .catch(err => console.log(err))
     }
+
+    // obtain all jobs posted with this co.
+    // Jobs = () => {
+    //     axios
+    //       .get("/api/todos/")
+    //       .then(res => this.setState({ todoList: res.data }))
+    //       .catch(err => console.log(err));
+    //   };
+
+    coJobs =(coID)=> {
+        axios.get(`/api/job/`, {params:
+        {
+            job:{
+                company: coID
+            } 
+        }})
+        .then(res=>
+            this.setState({
+                jobs: JSON.stringify(res.data)
+            }))
+            .catch(err => console.log(err));
+    }
+    // obtain all candidates that have applied to roles at this co.
+    
     render() {
         // setTimeout(() => {
         //     this.setState({user:{name: "Greg", company: "Disney", role: "Recruiter"}})
@@ -72,14 +98,17 @@ class Dashboard extends Component {
             {/* Name: {this.state.name} {this.state.l_name} <br/>
             Co: {this.state.company}<br/>
             Role: {this.state.role} */}
+            {this.state.jobs}
                 <TopNav id="topNav" name={this.state.name} l_name={this.state.l_name} co={this.state.company} role= {this.state.role}/>
                 <SideNav id="sideNav"/>
                 <Stats id="stats"/>
                 <div id="data">
-                    <Route  path = "/jobs"  component={Jobs} />
+                    <Route path = "/dashboard"  component={Jobs} />
                 <Switch>
                     <Route exact path = "/candidates" component={Candidates} />
                     <Route exact path = "/reports" component={Reports} />
+                    <Route path = "/jobs"  component={Jobs} />
+
                 </Switch>
                 </div>
             </div>
