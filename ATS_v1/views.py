@@ -19,6 +19,7 @@ class RoleView(viewsets.ModelViewSet):
 class EmployeeView(viewsets.ModelViewSet):
     serializer_class = EmployeeSerializer
     queryset = Employee.objects.all()
+    print(queryset)
 
 class DepartmentView(viewsets.ModelViewSet):
     serializer_class = DepartmentSerializer
@@ -34,11 +35,14 @@ class JobView(viewsets.ModelViewSet):
 
 def AllCompanyJobsView(self, c_id):
     listOfJobs = []
-    CoJobs = Job.objects.filter(company = c_id).values()
+    CoJobs = Job.objects.filter(company = c_id)
+    # CoJobs = Job.objects.all()
+    print(CoJobs)
     for job in CoJobs:
         data = job
         listOfJobs.append(data)
-    return HttpResponse ([listOfJobs])
+    # print(listOfJobs)
+    return HttpResponse (CoJobs)
 
 
 class CandidateView(viewsets.ModelViewSet):

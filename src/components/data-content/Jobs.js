@@ -15,7 +15,7 @@ class Jobs extends Component {
           hired: false,
           prospective: false,
         };
-    }
+    } 
 
     componentDidMount() {
         this.coJobs();
@@ -26,7 +26,7 @@ class Jobs extends Component {
         axios.get(`/api/jobs/${co_id}`)
         .then(res=>
             this.setState({
-                jobs: [res.data]
+                jobs: res.data
                 // jobs: JSON.stringify(res.data)
             }))
             .catch(err => console.log(err));
@@ -118,7 +118,9 @@ class Jobs extends Component {
 
     render(){
         // const j = Array.from(this.state.jobs)
-        const { jobs } = this.state;
+        const { jobs = [] } = this.state;
+        // console.log(j)
+        console.log(jobs.length, "jobs", jobs)
         return(
             <Fragment >
             <div >
