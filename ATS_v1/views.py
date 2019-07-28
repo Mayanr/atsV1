@@ -33,9 +33,12 @@ class JobView(viewsets.ModelViewSet):
     queryset = Job.objects.all()
 
 def AllCompanyJobsView(self, c_id):
-    # serializer_class = JobSerializer
+    listOfJobs = []
     CoJobs = Job.objects.filter(company = c_id).values()
-    return HttpResponse (CoJobs)
+    for job in CoJobs:
+        data = job
+        listOfJobs.append(data)
+    return HttpResponse ([listOfJobs])
 
 
 class CandidateView(viewsets.ModelViewSet):

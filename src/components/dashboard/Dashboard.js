@@ -2,6 +2,8 @@ import React, { Fragment, Component } from 'react';
 import axios from "axios";
 import { BrowserRouter as  Router, Route, Switch, Link } from 'react-router-dom';
 
+import PropTypes from "prop-types"
+
 import SideNav from './SideNav';
 import Stats from './Stats';
 import TopNav from './TopNav';
@@ -15,12 +17,14 @@ class Dashboard extends Component {
         super();
         this.state = {
             company: "",
+            co_id: "",
             name: "",
             l_name:"",
             email:"",
             role: "",
             jobs : [],
-            candidates:[]
+            candidates:[], 
+            job:""
         };
       }
 
@@ -36,7 +40,8 @@ class Dashboard extends Component {
             this.setState({ 
             name: res.data.first_name,
             l_name: res.data.last_name,
-            email: res.data.email 
+            email: res.data.email,
+            co_id: res.data.company
         })
         this.companyName(res.data.company)
         this.employeeRole(res.data.hiring_role)
@@ -66,25 +71,16 @@ class Dashboard extends Component {
     }
 
     // obtain all jobs posted with this co.
-    // Jobs = () => {
-    //     axios
-    //       .get("/api/todos/")
-    //       .then(res => this.setState({ todoList: res.data }))
-    //       .catch(err => console.log(err));
-    //   };
-
     coJobs =(coID)=> {
         axios.get(`/api/jobs/${coID}`)
         .then(res=>
             this.setState({
-                jobs: JSON.stringify(res.data)
+                jobs: res.data
+                // jobs: JSON.stringify(res.data)
             }))
             .catch(err => console.log(err));
     }
 
-    displayJobs = status => {
-
-    }
     // obtain all candidates that have applied to roles at this co.
     
     render() {
@@ -97,7 +93,7 @@ class Dashboard extends Component {
             {/* Name: {this.state.name} {this.state.l_name} <br/>
             Co: {this.state.company}<br/>
             Role: {this.state.role} */}
-            {this.state.jobs}
+            {/* {this.state.jobs} */}
                 <TopNav id="topNav" name={this.state.name} l_name={this.state.l_name} co={this.state.company} role= {this.state.role}/>
                 <SideNav id="sideNav"/>
                 <Stats id="stats"/>
@@ -106,8 +102,9 @@ class Dashboard extends Component {
                 <Switch>
                     <Route exact path = "/candidates" component={Candidates} />
                     <Route exact path = "/reports" component={Reports} />
-                    <Route path = "/jobs"  component={Jobs} />
-
+                    <Route path = "/jobs"  render={(props) => <Jobs {...props} jobs ={this.state.jobs} co_id = {this.state.co_id} />} />
+                   
+                    )}/>
                 </Switch>
                 </div>
             </div>
@@ -115,6 +112,11 @@ class Dashboard extends Component {
         )
     }
 }
-
+Dashboard.propTypes = {
+    jobs: PropTypes.array.isRequired
+};
+Dashboard.defaultProps ={
+    jobs: []
+}
 
 export default Dashboard;

@@ -27,9 +27,6 @@ router.register(r'employee', views.EmployeeView, 'Employee')
 router.register(r'department', views.DepartmentView, 'Department')
 router.register(r'job_status', views.Job_StatusView, 'Job_Status')
 router.register(r'job', views.JobView, 'Job')
-# all company jobs
-# router.register(r'jobs', views.AllCompanyJobsView, 'Job')
-
 router.register(r'candidate', views.CandidateView, 'Candidate')
 router.register(r'candidate_status', views.Candidate_StatusView, 'Candidate_Status')
 router.register(r'source', views.SourceView, 'Source')
