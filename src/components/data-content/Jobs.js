@@ -9,7 +9,7 @@ class Jobs extends Component {
         super(props);
         this.state = {
             co_id: this.props.co_id,
-            jobs: [],
+            jobs: this.props.jobs,
           active: false,
           rejected: false,
           hired: false,
@@ -17,20 +17,19 @@ class Jobs extends Component {
         };
     } 
 
-    componentDidMount() {
-        this.coJobs();
-    }
+    // componentDidMount() {
+    //     this.coJobs();
+    // }
 
-    coJobs =()=> {
-        const {co_id} = this.state;
-        axios.get(`/api/jobs/${co_id}`)
-        .then(res=>
-            this.setState({
-                jobs: res.data
-                // jobs: JSON.stringify(res.data)
-            }))
-            .catch(err => console.log(err));
-    }
+    // coJobs =()=> {
+    //     const {co_id} = this.state;
+    //     axios.get(`/api/jobs/${co_id}`)
+    //     .then(res=>
+    //         this.setState({
+    //             jobs: res.data
+    //         }))
+    //         .catch(err => console.log(err));
+    // }
 
 
     displayActive = status => {
@@ -97,16 +96,19 @@ class Jobs extends Component {
             <li key={job.id}>1 . {job.title}</li>)}</ul>);
     }
     
-    // renderJobs =() => {
-    //     const j = Array.from(this.state.jobs)
-    //     const g = j.map((job) =>
-    //     <li>{job}</li>);
-       
-    // }
-    // );
-    // return(
-    //     <ul>{ listJ }</ul>
-    // );
+    renderJobs =() => {
+    //    const j = Array.from(this.state.jobs)
+    //    const g = j.map((job) =>
+    //    <li>{job}</li>);   
+    return(
+        this.props.jobs.map(j =>(
+            <ul>
+                <li key={j.id}>
+                   {j.id} { j.title }
+                </li>
+            </ul>
+        ))
+    );
     //   return(
     //       <ul>
     //           {a.map(function(job, index){
@@ -114,13 +116,13 @@ class Jobs extends Component {
     //           })}
     //       </ul>
     //   )
-    
+}
 
     render(){
         // const j = Array.from(this.state.jobs)
-        const { jobs = [] } = this.state;
+        // const { jobs = [] } = this.state;
         // console.log(j)
-        console.log(jobs.length, "jobs", jobs)
+        // console.log(this.props.jobs.length, "jobs from Jobs", this.props.jobs)
         return(
             <Fragment >
             <div >
@@ -133,13 +135,13 @@ class Jobs extends Component {
                         {this.renderItems()}
                     </ul> */}
                     <ul>
-                        {/* render jobs: {this.jobList()} <br/> */}
+                        render jobs: {this.renderJobs()} <br/>
                        state.co_id: {this.state.co_id} <br/>
-                        props.job: {this.props.jobs}<br />
-                        state.job: {this.state.jobs} 
+                        props.job: {this.props.jobs.id}<br />
+                        state.job: {this.state.jobs.title} 
 
-                    {jobs.map(job =>
-                        <li key={job.id}><b>Job title: {job.title}</b></li>)}
+                    {/* {jobs.map(job =>
+                        <li key={job.id}><b>Job title: {job.title}</b></li>)} */}
                     </ul>
             </div>
             </Fragment>

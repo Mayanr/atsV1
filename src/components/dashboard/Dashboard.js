@@ -13,8 +13,8 @@ import Reports from '../data-content/Reports';
 
 
 class Dashboard extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             company: "",
             co_id: "",
@@ -22,7 +22,18 @@ class Dashboard extends Component {
             l_name:"",
             email:"",
             role: "",
-            jobs : [],
+            jobs : [
+                // id:null,
+                // company: "",
+                // title: "",
+                // description: "",
+                // hiring_team: "",
+                // department: "",
+                // req_id: '',
+                // status: "",
+                // created_at:"",
+                // updated_at: ""
+            ],
             candidates:[], 
             job:""
         };
@@ -32,6 +43,7 @@ class Dashboard extends Component {
     // retreive data from api
     componentDidMount() {
         this.employeeAccount();
+        console.log("CoJobs function:" , this.state.jobs)
     }
     employeeAccount = () => {
     const userID = 1;
@@ -66,33 +78,41 @@ class Dashboard extends Component {
                     role: res.data.name
                 }))
             // .then(res=>console.log("companyName function:", res.data.name))
-            
             .catch(err => console.log(err))
     }
 
     // obtain all jobs posted with this co.
+    
     coJobs =(coID)=> {
-        axios.get(`/api/jobs/${coID}`)
+        axios.get(`/api/job`)
+        // axios.get(`/api/jobs/${coID}`)
         .then(res=>
             this.setState({
-                jobs: res.data
-                // jobs: JSON.stringify(res.data)
+                jobs: res.data.filter(
+                    job => job.company === coID
+                )
             }))
             .catch(err => console.log(err));
     }
 
+    // renderJobs=() => {
+    //     return this.state.jobs.map(job => <li key={job.id}>{job.title} </li>)
+    // }
     // obtain all candidates that have applied to roles at this co.
     
     render() {
         // setTimeout(() => {
         //     this.setState({user:{name: "Greg", company: "Disney", role: "Recruiter"}})
         // }, 5000)
+        console.log(this.state.jobs.length, "jobs in render function", this.state.jobs)
+        const jobList = this.state.jobs
         return(
             <Router>
             <div id="dashboard">
             {/* Name: {this.state.name} {this.state.l_name} <br/>
             Co: {this.state.company}<br/>
             Role: {this.state.role} */}
+            {/* {this.renderJobs()} */}
             {/* {this.state.jobs} */}
                 <TopNav id="topNav" name={this.state.name} l_name={this.state.l_name} co={this.state.company} role= {this.state.role}/>
                 <SideNav id="sideNav"/>
@@ -102,9 +122,7 @@ class Dashboard extends Component {
                 <Switch>
                     <Route exact path = "/candidates" component={Candidates} />
                     <Route exact path = "/reports" component={Reports} />
-                    <Route path = "/jobs"  render={(props) => <Jobs {...props} jobs ={this.state.jobs} co_id = {this.state.co_id} />} />
-                   
-                    )}/>
+                    <Route path = "/jobs"  render={(props) => <Jobs {...props} jobs ={jobList} co_id = {this.state.co_id} />} />
                 </Switch>
                 </div>
             </div>
