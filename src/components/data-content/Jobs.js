@@ -89,12 +89,12 @@ class Jobs extends Component {
         </div>
     );
 };
-    joblist = () =>{
-        const j = Array.from(this.state.jobs)
-        const { jobs = [] } = this.props;
-        return (<ul>{j.map(job =>
-            <li key={job.id}>1 . {job.title}</li>)}</ul>);
-    }
+    // joblist = () =>{
+    //     const j = Array.from(this.state.jobs)
+    //     const { jobs = [] } = this.props;
+    //     return (<ul>{j.map(job =>
+    //         <li key={job.id}>1 . {job.title}</li>)}</ul>);
+    // }
     
     renderJobs =() => {
     //    const j = Array.from(this.state.jobs)
@@ -104,7 +104,7 @@ class Jobs extends Component {
         this.props.jobs.map(j =>(
             <ul>
                 <li key={j.id}>
-                   {j.id} { j.title }
+                   {j.id}.) { j.title } - requires expertise in {j.description}
                 </li>
             </ul>
         ))
@@ -135,11 +135,7 @@ class Jobs extends Component {
                         {this.renderItems()}
                     </ul> */}
                     <ul>
-                        render jobs: {this.renderJobs()} <br/>
-                       state.co_id: {this.state.co_id} <br/>
-                        props.job: {this.props.jobs.id}<br />
-                        state.job: {this.state.jobs.title} 
-
+                        {this.renderJobs()}
                     {/* {jobs.map(job =>
                         <li key={job.id}><b>Job title: {job.title}</b></li>)} */}
                     </ul>

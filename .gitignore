@@ -8,7 +8,6 @@ node_modules/
 build/
 staticfiles/
 
-package-lock.json
 
 # dependencies
 /node_modules
