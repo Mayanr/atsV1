@@ -1,5 +1,5 @@
 import React, { Fragment, Component} from 'react';
-import axios from "axios";
+import JobModal from "./JobModal";
 
 import PropTypes from "prop-types"
 
@@ -12,7 +12,11 @@ class Jobs extends Component {
       open: false,
       on_hold: false,
       closed: false,
-      all: true
+      all: true, 
+      activeJob: {
+        title: "",
+        description: "",
+      }
     };
   } 
 
@@ -67,7 +71,7 @@ class Jobs extends Component {
 
   renderTabList = () => {
     return (
-      <div className="my-5 tab-list">
+      <div className="tab-list">
         <span
             onClick={()=> this.displaySelectedTab("all")}
             className={this.state.all ? "active" : ""}
@@ -119,9 +123,6 @@ class Jobs extends Component {
         job => job.status === 3
       )
     }
-  //    const j = Array.from(this.state.jobs)
-  //    const g = j.map((job) =>
-  //    <li>{job}</li>);   
     return(
       // this.props.jobs.map(j => (
       jobList.map(j => (
@@ -140,69 +141,85 @@ class Jobs extends Component {
           <td>{this.formatDate(j.updated_at)}</td>
           <td>
           <button
-            onClick={() => this.editJob(j.id)}
+            onClick={() => this.editJob(j)}
             className="editButton"
           >
-            {" "}
-            Edit{" "}
+            Edit
           </button>
           <button
-            onClick={() => this.handleDelete(j.id)}
+            onClick={() => this.handleDelete(j)}
             className="deleteButton"
           >
-            Delete{" "}
+            Delete
           </button>
           </td>
         </tr>   
       ))
     );
   }
+  
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
+  };
 
-    render(){
-        // const j = Array.from(this.state.jobs)
-        // const { jobs = [] } = this.state;
-        // console.log(j)
-        // console.log(this.props.jobs.length, "jobs from Jobs", this.props.jobs)
-      return(
-        <Fragment >
-        <div>
-          <button >
-            Add Job
-          </button>
-          <h2>THE JOBS COMPONENT</h2>
-              {this.renderTabList()}
-              <div className="responsiveTable">
-          <table>
-          <thead>
-            <tr>
-              <th> ID </th>
-              <th> Department </th>
-              <th> Title </th>
-              {/* <th> Description </th> */}
-              <th> Applicants </th>
-              <th> Status </th>
-              <th> Date Created </th>
-              <th> Last Modified </th>
-              <th> Actions </th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderJobs()}
-          </tbody>
-          </table>
-          </div>
+  createJob = () => {
+    console.log("create job has been clicked")
+    const job = { 
+      title: "",
+      description: "",
+    };
+    this.setState({ activeJob: job, modal: !this.state.modal });
+  };
+
+  render(){
+    return(
+      <main >
+      <div>
+        <button onClick={this.createJob}>
+          Add Job
+        </button>
+        <h2>THE JOBS COMPONENT</h2>
+            {this.renderTabList()}
+            <div className="responsiveTable">
+        <table>
+        <thead>
+          <tr>
+            <th> ID </th>
+            <th> Department </th>
+            <th> Title </th>
+            {/* <th> Description </th> */}
+            <th> Applicants </th>
+            <th> Status </th>
+            <th> Date Created </th>
+            <th> Last Modified </th>
+            <th> Actions </th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.renderJobs()}
+        </tbody>
+        </table>
         </div>
-        </Fragment>
-      )
-    }
+      </div>
+
+      {this.state.modal ? (
+        <JobModal
+          activeJob={this.state.activeJob}
+          toggle={this.toggle}
+          onSave={this.handleSubmit}
+        />
+      ) : null}
+      </main>
+    )
+  }
 }
 
-Jobs.propTypes = {
-    jobs: PropTypes.array.isRequired
-};
+// Jobs.propTypes = {
+//     jobs: PropTypes.array.isRequired
+// };
 
-Jobs.defaultProps ={
-    jobs: []
-}
+// Jobs.defaultProps ={
+//     jobs: []
+// }
 
 export default Jobs;

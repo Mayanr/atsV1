@@ -128,7 +128,7 @@ class Dashboard extends Component {
                 <SideNav id="sideNav"/>
                 <Stats id="stats"/>
                 <div id="data">
-                    <Route path = "/(dashboard|jobs)/"  render={(props) => <Jobs {...props} jobs ={jobs} co_id = {co_id} />} />
+                    <Route exact path = "/(dashboard|jobs)/"  render={(props) => <Jobs {...props} jobs ={jobs} co_id = {co_id} />} />
                     {/* <Route path = "/dashboard"  component={Jobs} /> */}
                 <Switch>
                     {/* <Route exact path = "/candidates" component={Candidates} /> */}
@@ -143,11 +143,11 @@ class Dashboard extends Component {
         )
     }
 }
-Dashboard.propTypes = {
-    jobs: PropTypes.array.isRequired
-};
-Dashboard.defaultProps ={
-    jobs: []
-}
+// Dashboard.propTypes = {
+//     jobs: PropTypes.array.isRequired
+// };
+// Dashboard.defaultProps ={
+//     jobs: []
+// }
 
 export default Dashboard;
