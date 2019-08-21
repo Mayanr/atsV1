@@ -4,17 +4,16 @@ import axios from "axios";
 import PropTypes from "prop-types"
 
 class Jobs extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            co_id: this.props.co_id,
-            jobs: this.props.jobs,
-          active: false,
-          rejected: false,
-          hired: false,
-          prospective: false,
-        };
-    } 
+  constructor(props) {
+    super(props);
+    this.state = {
+      co_id: this.props.co_id,
+      jobs: this.props.jobs,
+      open: false,
+      on_hold: false,
+      closed: false,
+    };
+  } 
 
     // componentDidMount() {
     //     this.coJobs();
@@ -30,58 +29,54 @@ class Jobs extends Component {
     //         .catch(err => console.log(err));
     // }
 
-
-    displayActive = status => {
-        if (status) {
-          return this.setState({ active: true });
-        }
-        return this.setState({ active: false });
-      };
-
-    displayRejected = status => {
-        if (status) {
-            return this.setState({ rejected: true });
+  displaySelectedTab = status =>{
+    if(status=="open"){
+      return this.setState({ 
+        open: true, 
+        on_hold: false, 
+        closed: false 
+      });
     }
-        return this.setState({ rejected: false });
-    };
-
-    displayHired = status => {
-        if (status) {
-            return this.setState({ hired: true });
+    else if (status=="on_hold"){
+      return this.setState({ 
+        open: false, 
+        on_hold: true, 
+        closed: false
+      });
     }
-        return this.setState({ hired: false });
-    };
-
-    displayProspective = status => {
-        if (status) {
-            return this.setState({ hired: true });
+    else{
+      return this.setState({
+        open: false, 
+        on_hold: false, 
+        closed: true
+      });
     }
-        return this.setState({ hired: false });
-    };
-    renderTabList = () => {
-        return (
-          <div className="my-5 tab-list">
-            <span
-              onClick={() => this.displayActive(true)}
-              className={this.state.active ? "active" : ""}
-            >
-              Open
-            </span>
-            <span
-              onClick={() => this.displayHired(true)}
-              className={this.state.hired ? "hired" : ""}
-            >
-              On Hold
-            </span>
-            <span
-              onClick={() => this.displayProspective(true)}
-              className={this.state.prospective ? "prospective" : ""}
-            >
-            Closed
+  }
+
+  renderTabList = () => {
+    return (
+      <div className="my-5 tab-list">
+        <span
+          onClick={()=> this.displaySelectedTab("open")}
+          className={this.state.open ? "active" : ""}
+        >
+          Open
         </span>
-        </div>
+        <span
+          onClick={()=> this.displaySelectedTab("on_hold")}
+          className={this.state.on_hold ? "active" : ""}
+        >
+          On Hold
+        </span>
+        <span
+          onClick={()=> this.displaySelectedTab("closed")}
+          className={this.state.closed ? "active" : ""}
+        >
+          Closed
+        </span>
+      </div>
     );
-};
+  };
 
 formatDate=(date)=>{
   return date.substring(0, 10);

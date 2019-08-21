@@ -142,11 +142,30 @@ button, .linkText{
   /* min-height: 200px; */
 }
 
+/* table styles */
 table {
   border: solid 1px;
+  background-color: #747577;
+  color: white;
 }
 
 th, td {
   padding: 10px;
   text-align: center;
+}
+
+/* tab styles */
+.tab-list {
+  margin-left: 1px;
+}
+.tab-list > span {
+  padding: 5px 8px;
+  border: 1px solid #747577;
+  border-radius: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.tab-list > span.active {
+  background-color: #747577;
+  color: #ffffff;
 }
