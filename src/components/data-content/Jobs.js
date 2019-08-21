@@ -8,7 +8,7 @@ class Jobs extends Component {
     super(props);
     this.state = {
       co_id: this.props.co_id,
-      jobs: this.props.jobs,
+      // jobs: this.props.jobs,
       open: false,
       on_hold: false,
       closed: false,
@@ -129,10 +129,30 @@ class Jobs extends Component {
           <td>{j.id}</td>
           <td>{j.department.name}</td>
           <td>{j.title}</td>
-          <td>{j.description}</td>
-          <td>{j.candidates_applied.length}</td>  
+          {/* <td>{j.description}</td> */}
+          <td>{j.candidates_applied.length}</td> 
+          <td>
+            {j.status === 1 && "Open"}
+            {j.status === 2 && "On Hold"}
+            {j.status === 3 && "Closed"}
+          </td> 
           <td>{this.formatDate(j.created_at)}</td>
           <td>{this.formatDate(j.updated_at)}</td>
+          <td>
+          <button
+            onClick={() => this.editJob(j.id)}
+            className="editButton"
+          >
+            {" "}
+            Edit{" "}
+          </button>
+          <button
+            onClick={() => this.handleDelete(j.id)}
+            className="deleteButton"
+          >
+            Delete{" "}
+          </button>
+          </td>
         </tr>   
       ))
     );
@@ -145,28 +165,32 @@ class Jobs extends Component {
         // console.log(this.props.jobs.length, "jobs from Jobs", this.props.jobs)
       return(
         <Fragment >
-        <div >
+        <div>
           <button >
             Add Job
           </button>
           <h2>THE JOBS COMPONENT</h2>
               {this.renderTabList()}
+              <div className="responsiveTable">
           <table>
           <thead>
             <tr>
               <th> ID </th>
               <th> Department </th>
               <th> Title </th>
-              <th> Description </th>
-              <th> Candidates Applied </th>
+              {/* <th> Description </th> */}
+              <th> Applicants </th>
+              <th> Status </th>
               <th> Date Created </th>
               <th> Last Modified </th>
+              <th> Actions </th>
             </tr>
           </thead>
           <tbody>
             {this.renderJobs()}
           </tbody>
           </table>
+          </div>
         </div>
         </Fragment>
       )

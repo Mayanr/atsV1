@@ -17,7 +17,7 @@ ul {
   list-style: none;
   font-size: 15px;
 }
-
+/* button and link styling */
 button, .linkText{
   padding: 8px;
   background: blue;
@@ -31,6 +31,22 @@ button, .linkText{
   margin: 2%;
   /* border: 2px solid #4B2187; */
   text-decoration: none;
+  cursor: pointer;
+}
+
+button.deleteButton {
+  background-color: darkred;
+  font-size: 12px;
+  padding: 6px;
+  letter-spacing: 1px; 
+}
+
+button.editButton {
+  background-color: white;
+  color: black;
+  font-size: 12px;
+  padding: 6px;
+  letter-spacing: 1px; 
 }
 
 .footer {
@@ -87,68 +103,94 @@ button, .linkText{
 }
 
 /* Dashboard layout*/
-#dashboard {
-  display: grid;
-  grid-auto-columns: 1fr;
-  grid-template-areas:
-    'topNav topNav topNav topNav topNav topNav'
-    'sideNav stats stats stats stats stats'
-    'sideNav data data data data data'
-}
-
 /* top */
 #topNav {
-  grid-area: topNav;
   background-color: lightsteelblue;
   padding: 1%;
 }
-
 #logoutLink {
   float: right;
   top: 10px;
 }
 
-/* left side */
+/* left side on small screen */
 #sideNav {
-  grid-area: sideNav;
   padding: 3%;
   background-color: lightsteelblue;
 }
-
 #sideNav ul {
   display: flex;
-  flex-direction: column;
-  height: 250px;
+  flex-direction: row;
   justify-content: space-around;
 }
 
-/* section#sideNav ul li a.linkText{
-  min-width: 100px;
-} */
 
-/* main, central content */
-#stats {
-  grid-area: stats;
-  padding: 3%;
-  background-color: lightgray;
-  margin: 1% 0 0 1%;
-}
 
-#data {
-  grid-area: data;
-  border: 1px solid black;
-  padding: 3%;
-  margin: 1% 0 0 1%;
-  /* min-height: 200px; */
+@media screen and (min-width: 1000px) {
+  #dashboard {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-areas:
+      'topNav topNav topNav topNav topNav topNav'
+      'sideNav stats stats stats stats stats'
+      'sideNav data data data data data'
+  }
+  /* top */
+  #topNav {
+    grid-area: topNav;
+  }
+  /* left side */
+  #sideNav {
+    grid-area: sideNav;
+    padding: 3%;
+    background-color: lightsteelblue;
+  }
+  #sideNav ul {
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    justify-content: space-around;
+  }
+
+  /* section#sideNav ul li a.linkText{
+    min-width: 100px;
+  } */
+
+  /* main, central content */
+  #stats {
+    grid-area: stats;
+    padding: 3%;
+    background-color: lightgray;
+    margin: 1% 0 0 1%;
+  }
+
+  #data {
+    grid-area: data;
+    border: 1px solid black;
+    padding: 3%;
+    margin: 1% 0 0 1%;
+    /* min-height: 200px; */
+  }
 }
 
 /* table styles */
+.responsiveTable{
+  overflow-x:auto;
+}
 table {
   border: solid 1px;
   background-color: #747577;
   color: white;
+  width: 100%;
 }
-
+@media screen and (max-width: 700px) {
+  table{
+    font-size: 10px;
+  }
+  th, td {
+    padding: 0px;
+  }
+}
 th, td {
   padding: 10px;
   text-align: center;
