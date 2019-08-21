@@ -3,7 +3,6 @@ import axios from "axios";
 
 import PropTypes from "prop-types"
 
-
 class Jobs extends Component {
     constructor(props) {
         super(props);
@@ -83,12 +82,10 @@ class Jobs extends Component {
         </div>
     );
 };
-    // joblist = () =>{
-    //     const j = Array.from(this.state.jobs)
-    //     const { jobs = [] } = this.props;
-    //     return (<ul>{j.map(job =>
-    //         <li key={job.id}>1 . {job.title}</li>)}</ul>);
-    // }
+
+formatDate=(date)=>{
+  return date.substring(0, 10);
+}
     
     renderJobs =() => {
     //    const j = Array.from(this.state.jobs)
@@ -103,8 +100,8 @@ class Jobs extends Component {
                 <td>{j.title}</td>
                 <td>{j.description}</td>
                 <td>{j.candidates_applied.length}</td>  
-                <td>{j.created_at} </td>
-                <td>{j.updated_at} </td>
+                <td>{this.formatDate(j.created_at)}</td>
+                <td>{this.formatDate(j.updated_at)}</td>
               </tr>
             
         ))
