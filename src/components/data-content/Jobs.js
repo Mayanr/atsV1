@@ -12,6 +12,7 @@ class Jobs extends Component {
       open: false,
       on_hold: false,
       closed: false,
+      all: true
     };
   } 
 
@@ -34,21 +35,32 @@ class Jobs extends Component {
       return this.setState({ 
         open: true, 
         on_hold: false, 
-        closed: false 
+        closed: false,
+        all: false
       });
     }
     else if (status=="on_hold"){
       return this.setState({ 
         open: false, 
         on_hold: true, 
-        closed: false
+        closed: false,
+        all: false
       });
     }
-    else{
+    else if (status=="closed"){
       return this.setState({
         open: false, 
         on_hold: false, 
-        closed: true
+        closed: true,
+        all: false
+      });
+    }
+    else {
+      return this.setState({
+        open: false, 
+        on_hold: false, 
+        closed: false,
+        all: true
       });
     }
   }
@@ -56,6 +68,12 @@ class Jobs extends Component {
   renderTabList = () => {
     return (
       <div className="my-5 tab-list">
+        <span
+            onClick={()=> this.displaySelectedTab("all")}
+            className={this.state.all ? "active" : ""}
+        >
+          All
+        </span>
         <span
           onClick={()=> this.displaySelectedTab("open")}
           className={this.state.open ? "active" : ""}
@@ -78,37 +96,47 @@ class Jobs extends Component {
     );
   };
 
-formatDate=(date)=>{
-  return date.substring(0, 10);
-}
+  formatDate=(date)=>{
+    return date.substring(0, 10);
+  }
     
-    renderJobs =() => {
-    //    const j = Array.from(this.state.jobs)
-    //    const g = j.map((job) =>
-    //    <li>{job}</li>);   
+  renderJobs =() => {
+    const {open, on_hold, closed} = this.state;
+    const { jobs } = this.props
+    var jobList = jobs
+    if(open){
+      jobList = jobs.filter(
+        job => job.status === 1
+      )
+    }
+    else if(on_hold){
+      jobList = jobs.filter(
+        job => job.status === 2
+      )
+    }
+    else if(closed){
+      jobList = jobs.filter(
+        job => job.status === 3
+      )
+    }
+  //    const j = Array.from(this.state.jobs)
+  //    const g = j.map((job) =>
+  //    <li>{job}</li>);   
     return(
-        this.props.jobs.map(j =>(
-         
-              <tr key={j.id}>
-                <td>{j.id}</td>
-                <td>{j.department.name}</td>
-                <td>{j.title}</td>
-                <td>{j.description}</td>
-                <td>{j.candidates_applied.length}</td>  
-                <td>{this.formatDate(j.created_at)}</td>
-                <td>{this.formatDate(j.updated_at)}</td>
-              </tr>
-            
-        ))
+      // this.props.jobs.map(j => (
+      jobList.map(j => (
+        <tr key={j.id}>
+          <td>{j.id}</td>
+          <td>{j.department.name}</td>
+          <td>{j.title}</td>
+          <td>{j.description}</td>
+          <td>{j.candidates_applied.length}</td>  
+          <td>{this.formatDate(j.created_at)}</td>
+          <td>{this.formatDate(j.updated_at)}</td>
+        </tr>   
+      ))
     );
-    //   return(
-    //       <ul>
-    //           {a.map(function(job, index){
-    //               return <li key={ index }>{job} </li>;
-    //           })}
-    //       </ul>
-    //   )
-}
+  }
 
     render(){
         // const j = Array.from(this.state.jobs)
