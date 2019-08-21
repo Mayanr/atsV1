@@ -141,3 +141,11 @@ button, .linkText{
   margin: 1% 0 0 1%;
   /* min-height: 200px; */
 }
+
+table {
+  border: solid 1px;
+}
+th, td {
+  padding: 10px;
+  text-align: center;
+}

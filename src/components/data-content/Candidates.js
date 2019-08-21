@@ -43,7 +43,8 @@ class Candidates extends Component {
         this.props.candidates.map(c =>(
             <ul>
                 <li key={c.id}>
-                   {c.id}.) { c.applicant.first_name }
+                   {c.id}.) { c.applicant.first_name } - email: { c.applicant.email }
+                   <a className="linkText" href={c.resume} target="_blank">view resume</a>
                 </li>
             </ul>
         ))
@@ -61,7 +62,7 @@ class Candidates extends Component {
             </span>
             <span
               onClick={() => this.displayRejected(true)}
-              className={this.state.rejected ? "active" : ""}
+              className={this.state.rejected ? "rejected" : ""}
             >
               Rejected
             </span>
@@ -69,7 +70,7 @@ class Candidates extends Component {
               onClick={() => this.displayHired(true)}
               className={this.state.hired ? "hired" : ""}
             >
-              Rejected
+              Hired
             </span>
             <span
               onClick={() => this.displayProspective(true)}
@@ -85,9 +86,8 @@ class Candidates extends Component {
             <Fragment>
             <div >
                 <h2>THE CANDIDATES COMPONENT</h2>
-                {this.renderTabList()}
+                {this.renderTabList()} <br/>
                 {this.renderCandidates()}
-                    <p>Maecenas condimentum scelerisque quam. Pellentesque ut nunc massa. Cras vestibulum elit ut sem maximus, vel porttitor erat posuere. In eget mauris eros. Nam finibus volutpat elit, vel cursus urna vulputate sed. Proin porta libero interdum neque commodo lobortis. Donec volutpat, diam non mollis efficitur, odio elit efficitur dui, at accumsan nisi quam eget odio. Aliquam rutrum posuere nunc, nec consectetur nunc pretium in. Pellentesque sit amet est ac odio imperdiet molestie quis ultricies justo. Integer eget egestas quam, a porta sapien. In hac habitasse platea dictumst. Sed ut mi blandit, gravida orci in, convallis ante. Nunc finibus diam ac ante eleifend, sed elementum purus condimentum.</p>
             </div>
             </Fragment>
         )

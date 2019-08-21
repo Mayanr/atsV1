@@ -50,7 +50,8 @@ class CandidateSerializer(serializers.ModelSerializer):
 class JobSerializer(serializers.ModelSerializer):
     hiring_team = serializers.PrimaryKeyRelatedField(queryset=Employee.objects.all(), many=True)
     candidates_applied = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-
+    department = DepartmentSerializer(many=False, read_only=True)
+    
     class Meta:
         model = Job
         fields = ('id', 'company', 'title', 'description', 'hiring_team', 'department',  'req_id', 'status', 'candidates_applied', 'created_by', 'edited_by',  'created_at', 'updated_at')
@@ -58,7 +59,7 @@ class JobSerializer(serializers.ModelSerializer):
 class Candidate_ConsiderationSerializer(serializers.ModelSerializer):
     considered_for = JobSerializer(many=False, read_only=True)
     applicant = CandidateSerializer(many=False, read_only=True)
-    
+
     class Meta:
         model = Candidate_Consideration
         fields = ('id', 'applicant', 'considered_for', 'resume', 'source',  'recruiter', 'status', 'created_at', 'updated_at')

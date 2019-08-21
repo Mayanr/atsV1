@@ -34,16 +34,14 @@ class Dashboard extends Component {
                 // created_at:"",
                 // updated_at: ""
             ],
-            candidates:[], 
-            job:""
+            candidates:[]
         };
       }
 
     
     // retreive data from api
     componentDidMount() {
-        this.employeeAccount();
-        console.log("CoJobs function:" , this.state.jobs)
+        this.employeeAccount()   
     }
     employeeAccount = () => {
     const userID = 1;
@@ -101,7 +99,6 @@ class Dashboard extends Component {
         .get("/api/candidate_consideration")
         .then(res=>
             this.setState({
-                // candidates: res.data[0].considered_for.company
                 candidates: res.data.filter(
                     candidate => candidate.considered_for.company === coID
                 )

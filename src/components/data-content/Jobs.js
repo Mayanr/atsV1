@@ -66,25 +66,19 @@ class Jobs extends Component {
               onClick={() => this.displayActive(true)}
               className={this.state.active ? "active" : ""}
             >
-              Active
-            </span>
-            <span
-              onClick={() => this.displayRejected(true)}
-              className={this.state.rejected ? "active" : ""}
-            >
-              Rejected
+              Open
             </span>
             <span
               onClick={() => this.displayHired(true)}
               className={this.state.hired ? "hired" : ""}
             >
-              Rejected
+              On Hold
             </span>
             <span
               onClick={() => this.displayProspective(true)}
               className={this.state.prospective ? "prospective" : ""}
             >
-            Prospective
+            Closed
         </span>
         </div>
     );
@@ -102,11 +96,17 @@ class Jobs extends Component {
     //    <li>{job}</li>);   
     return(
         this.props.jobs.map(j =>(
-            <ul>
-                <li key={j.id}>
-                   {j.id}.) { j.title } - requires expertise in {j.description}
-                </li>
-            </ul>
+         
+              <tr key={j.id}>
+                <td>{j.id}</td>
+                <td>{j.department.name}</td>
+                <td>{j.title}</td>
+                <td>{j.description}</td>
+                <td>{j.candidates_applied.length}</td>  
+                <td>{j.created_at} </td>
+                <td>{j.updated_at} </td>
+              </tr>
+            
         ))
     );
     //   return(
@@ -123,25 +123,33 @@ class Jobs extends Component {
         // const { jobs = [] } = this.state;
         // console.log(j)
         // console.log(this.props.jobs.length, "jobs from Jobs", this.props.jobs)
-        return(
-            <Fragment >
-            <div >
-                <button >
-                  Add Job
-                </button>
-                <h2>THE JOBS COMPONENT</h2>
-                    {this.renderTabList()}
-                    {/* <ul className="list-group list-group-flush">
-                        {this.renderItems()}
-                    </ul> */}
-                    <ul>
-                        {this.renderJobs()}
-                    {/* {jobs.map(job =>
-                        <li key={job.id}><b>Job title: {job.title}</b></li>)} */}
-                    </ul>
-            </div>
-            </Fragment>
-        )
+      return(
+        <Fragment >
+        <div >
+          <button >
+            Add Job
+          </button>
+          <h2>THE JOBS COMPONENT</h2>
+              {this.renderTabList()}
+          <table>
+          <thead>
+            <tr>
+              <th> ID </th>
+              <th> Department </th>
+              <th> Title </th>
+              <th> Description </th>
+              <th> Candidates Applied </th>
+              <th> Date Created </th>
+              <th> Last Modified </th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.renderJobs()}
+          </tbody>
+          </table>
+        </div>
+        </Fragment>
+      )
     }
 }
 
