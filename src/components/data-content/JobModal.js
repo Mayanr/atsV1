@@ -24,7 +24,7 @@ class JobModal extends Component {
     handleChange = e => {
         let { name, value } = e.target;
         if (e.target.type === "radio") {
-          value = e.target.checked;
+          value = parseInt(e.target.id, 10);
         }
         const activeJob = { ...this.state.activeJob, [name]: value };
         this.setState({ activeJob });
@@ -37,6 +37,10 @@ class JobModal extends Component {
             <ModalHeader toggle={toggle}> Job Details </ModalHeader>
             <ModalBody>
               <Form>
+              {/* <FormGroup>
+                <Label for="edited_by">user ID</Label>
+                <Input type="text" name="edited_by" value={user_id} onChange={this.handleChange}/>
+              </FormGroup> */}
                 <FormGroup>
                   <Label for="department">Department</Label>
                   <Input
@@ -85,24 +89,24 @@ class JobModal extends Component {
                     <CustomInput
                       type="radio"
                       name="status"
-                      id="open"
-                    //   checked={this.state.activeJob.status === 1 ? true:false}
+                      id="1"
+                      checked={this.state.activeJob.status === 1 && true}
                       onChange={this.handleChange}
                       label="Open"
                     />
                     <CustomInput  
                       type="radio"
                       name="status"
-                      id="on_hold"
-                    //   checked={this.state.activeJob.status === 2 ? true:false}
+                      id="2"
+                      checked={this.state.activeJob.status === 2 && true}
                       onChange={this.handleChange}
                       label="On Hold"
                     />
                     <CustomInput 
                       type="radio"
                       name="status"
-                      id="closed"
-                    //   checked={this.state.activeJob.status === 3 ? true:false}
+                      id="3"
+                      checked={this.state.activeJob.status === 3 && true}
                       onChange={this.handleChange}
                       label="Closed"
                     />

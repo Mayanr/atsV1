@@ -18,6 +18,7 @@ class Dashboard extends Component {
         this.state = {
             company: "",
             co_id: "",
+            user_id: 3,
             name: "",
             l_name:"",
             email:"",
@@ -41,10 +42,9 @@ class Dashboard extends Component {
     
     // retreive data from api
     componentDidMount() {
-        this.employeeAccount()   
+        this.employeeAccount(this.state.user_id)   
     }
-    employeeAccount = () => {
-    const userID = 1;
+    employeeAccount = (userID) => {
     axios.get(`/api/employee/${userID}/`)
         .then(res => {
             this.setState({ 
@@ -115,7 +115,7 @@ class Dashboard extends Component {
         console.log(this.state.jobs.length, "jobs in render function", this.state.jobs)
         console.log("candidates in render function", this.state.candidates)
 
-        const { jobs, candidates, co_id } = this.state
+        const { jobs, candidates, co_id, user_id } = this.state
         return(
             <Router>
             <div id="dashboard">
@@ -128,11 +128,11 @@ class Dashboard extends Component {
                 <SideNav id="sideNav"/>
                 <Stats id="stats"/>
                 <div id="data">
-                    <Route exact path = "/(dashboard|jobs)/"  render={(props) => <Jobs {...props} jobs ={jobs} co_id = {co_id} />} />
+                    <Route exact path = "/(dashboard|jobs)/"  render={(props) => <Jobs {...props} jobs ={jobs} co_id = {co_id} user_id={user_id}/>}/>
                     {/* <Route path = "/dashboard"  component={Jobs} /> */}
                 <Switch>
                     {/* <Route exact path = "/candidates" component={Candidates} /> */}
-                    <Route exact path = "/candidates" render={(props) => <Candidates {...props} candidates ={candidates} co_id ={co_id}/>}/>
+                    <Route exact path = "/candidates" render={(props) => <Candidates {...props} candidates ={candidates} co_id ={co_id} user_id={user_id}/>}/>
 
                     <Route exact path = "/reports" component={Reports} />
                     {/* <Route path = "/jobs"  render={(props) => <Jobs {...props} jobs ={jobList} co_id = {this.state.co_id} />} /> */}

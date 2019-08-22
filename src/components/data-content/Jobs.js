@@ -1,5 +1,6 @@
 import React, { Fragment, Component} from 'react';
 import JobModal from "./JobModal";
+import axios from "axios";
 
 import PropTypes from "prop-types"
 
@@ -13,11 +14,17 @@ class Jobs extends Component {
       on_hold: false,
       closed: false,
       all: true, 
+      // user_id: this.props.user_id,
       activeJob: {
+        company: this.props.co_id,
         title: "",
         description: "",
+        hiring_team: [],
         department: "",
-        status: null
+        req_id: "",
+        status: null,
+        created_by: null,
+        edited_by: null,
       }
     };
   } 
@@ -163,17 +170,43 @@ class Jobs extends Component {
   toggle = () => {
     this.setState({ modal: !this.state.modal });
   };
+
+  // JobModal onSave function
+  handleSubmit = job => {
+    this.toggle();
+    if (job.id) {
+      console.log(job)
+      // axios
+      //   .put(`/api/todos/${item.id}/`, item)
+      //   .then(res => this.refreshList());
+      return;
+    }
+    console.log("no job found for" ,job)
+    // axios
+    //   .post("/api/todos/", item)
+    //   .then(res => this.refreshList());
+  };
+
   createJob = () => {
     const job = { 
+      company: this.props.co_id,
       title: "",
       description: "",
+      hiring_team: [],
       department: "",
-      status: null
+      req_id: "",
+      status: null,
+      created_by: this.props.user_id,
+      edited_by: this.props.user_id
     };
     this.setState({ activeJob: job, modal: !this.state.modal });
   };
   editJob = job => {
-    this.setState({ activeJob: job, modal: !this.state.modal });
+    const editedJob = {
+      ...job,
+      edited_by: this.props.user_id
+    }
+    this.setState({ activeJob: editedJob, modal: !this.state.modal });
   };
 
   render(){
