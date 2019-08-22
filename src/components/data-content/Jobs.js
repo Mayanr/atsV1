@@ -1,4 +1,4 @@
-import React, { Fragment, Component} from 'react';
+import React, { Component} from 'react';
 import JobModal from "./JobModal";
 import axios from "axios";
 
@@ -246,6 +246,7 @@ class Jobs extends Component {
           activeJob={this.state.activeJob}
           toggle={this.toggle}
           onSave={this.handleSubmit}
+          employees={this.props.employees}
         />
       ) : null}
       </main>

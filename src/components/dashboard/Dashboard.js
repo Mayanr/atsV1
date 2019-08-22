@@ -35,7 +35,8 @@ class Dashboard extends Component {
                 // created_at:"",
                 // updated_at: ""
             ],
-            candidates:[]
+            candidates:[],
+            employees: []
         };
       }
 
@@ -57,6 +58,7 @@ class Dashboard extends Component {
         this.employeeRole(res.data.hiring_role)
         this.coJobs(res.data.company);
         this.candidates_considered(res.data.company);
+        this.company_employees(res.data.company)
     })
         .catch(err => console.log(err));
     };
@@ -80,8 +82,7 @@ class Dashboard extends Component {
             .catch(err => console.log(err))
     }
 
-    // obtain all jobs posted with this co.
-    
+    // retrieve all jobs posted with this co.  
     coJobs =(coID)=> {
         axios.get(`/api/job`)
         // axios.get(`/api/jobs/${coID}`)
@@ -106,6 +107,18 @@ class Dashboard extends Component {
             .catch(err => console.log(err));
     }
 
+    // retrieve all employees with this co.
+    company_employees = (coID) => {
+        axios
+        .get("/api/employee")
+        .then(res=>
+            this.setState({
+                employees: res.data.filter(
+                    employee => employee.company === coID
+                )
+            }))
+            .catch(err => console.log(err));
+    }
     // renderJobs=() => {
     //     return this.state.jobs.map(job => <li key={job.id}>{job.title} </li>)
     // }
@@ -114,8 +127,9 @@ class Dashboard extends Component {
     render() {
         console.log(this.state.jobs.length, "jobs in render function", this.state.jobs)
         console.log("candidates in render function", this.state.candidates)
+        console.log("employees in render function", this.state.employees)
 
-        const { jobs, candidates, co_id, user_id } = this.state
+        const { jobs, candidates, co_id, user_id, employees } = this.state
         return(
             <Router>
             <div id="dashboard">
@@ -128,7 +142,15 @@ class Dashboard extends Component {
                 <SideNav id="sideNav"/>
                 <Stats id="stats"/>
                 <div id="data">
-                    <Route exact path = "/(dashboard|jobs)/"  render={(props) => <Jobs {...props} jobs ={jobs} co_id = {co_id} user_id={user_id}/>}/>
+                    <Route exact path = "/(dashboard|jobs)/"  
+                        render={(props) => <Jobs 
+                            {...props} 
+                            jobs ={jobs} 
+                            co_id = {co_id} 
+                            user_id={user_id} 
+                            employees={employees}
+                        />}
+                    />
                     {/* <Route path = "/dashboard"  component={Jobs} /> */}
                 <Switch>
                     {/* <Route exact path = "/candidates" component={Candidates} /> */}

@@ -22,13 +22,33 @@ class JobModal extends Component {
     }
 
     handleChange = e => {
+        console.log(e.target);
         let { name, value } = e.target;
         if (e.target.type === "radio") {
-          value = parseInt(e.target.id, 10);
+            value = parseInt(e.target.id, 10);
+        }
+        if (e.target.multiple === true){
+            console.log("multiple select:" , name, value);
+            value = [...e.target.options].filter(({selected}) => selected).map(({value}) => parseInt(value))
+            console.log( [...e.target.options].filter(({selected}) => selected))
         }
         const activeJob = { ...this.state.activeJob, [name]: value };
         this.setState({ activeJob });
     };
+
+    list_employees = () => {
+        const { employees, activeJob } = this.props;
+        return employees.map(employee => (
+            <option 
+                key={employee.id}
+                value={employee.id}
+                // id="hiring_team_selection"
+                selected={activeJob.hiring_team.includes(employee.id) && true}
+                >
+                    {employee.first_name} {employee.last_name}
+            </option>
+        ))
+    }
 
     render() {
         const { toggle, onSave } = this.props;
@@ -83,6 +103,14 @@ class JobModal extends Component {
                     required
                   />
                 </FormGroup>
+
+                <FormGroup>
+                    <Label for="hiring_team">Hiring Team</Label>
+                    <Input type="select" name="hiring_team" multiple onChange={this.handleChange}>
+                        {this.list_employees()}
+                    </Input>
+                </FormGroup>
+
                 <FormGroup check>
                   <Label for="status" check required>Status</Label>
                     <div>
