@@ -16,6 +16,8 @@ class Jobs extends Component {
       activeJob: {
         title: "",
         description: "",
+        department: "",
+        status: null
       }
     };
   } 
@@ -157,17 +159,20 @@ class Jobs extends Component {
       ))
     );
   }
-  
+
   toggle = () => {
     this.setState({ modal: !this.state.modal });
   };
-
   createJob = () => {
-    console.log("create job has been clicked")
     const job = { 
       title: "",
       description: "",
+      department: "",
+      status: null
     };
+    this.setState({ activeJob: job, modal: !this.state.modal });
+  };
+  editJob = job => {
     this.setState({ activeJob: job, modal: !this.state.modal });
   };
 
@@ -178,7 +183,8 @@ class Jobs extends Component {
         <button onClick={this.createJob}>
           Add Job
         </button>
-        <h2>THE JOBS COMPONENT</h2>
+        <h2>Job Listings</h2>
+        <br/>
             {this.renderTabList()}
             <div className="responsiveTable">
         <table>
