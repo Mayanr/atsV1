@@ -20,7 +20,7 @@ class Jobs extends Component {
         title: "",
         description: "",
         hiring_team: [],
-        department: "",
+        department: null,
         req_id: "",
         status: null,
         created_by: null,
@@ -44,7 +44,7 @@ class Jobs extends Component {
     // }
 
   displaySelectedTab = status =>{
-    if(status=="open"){
+    if(status==="open"){
       return this.setState({ 
         open: true, 
         on_hold: false, 
@@ -52,7 +52,7 @@ class Jobs extends Component {
         all: false
       });
     }
-    else if (status=="on_hold"){
+    else if (status==="on_hold"){
       return this.setState({ 
         open: false, 
         on_hold: true, 
@@ -60,7 +60,7 @@ class Jobs extends Component {
         all: false
       });
     }
-    else if (status=="closed"){
+    else if (status==="closed"){
       return this.setState({
         open: false, 
         on_hold: false, 
@@ -137,7 +137,12 @@ class Jobs extends Component {
       jobList.map(j => (
         <tr key={j.id}>
           <td>{j.id}</td>
-          <td>{j.department.name}</td>
+          <td>
+            {j.department === 1 && "Engineering"}
+            {j.department === 2 && "Marketing"}
+            {j.department === 3 && "HR"}
+          </td>
+          {/* <td>{j.department }</td> */}
           <td>{j.title}</td>
           {/* <td>{j.description}</td> */}
           <td>{j.candidates_applied.length}</td> 
@@ -174,17 +179,31 @@ class Jobs extends Component {
   // JobModal onSave function
   handleSubmit = job => {
     this.toggle();
+    console.log(job.department)
+    // job.department = JSON.parse(job.department)
+    // console.log("job req:" ,job.req_id)
     if (job.id) {
-      console.log(job)
-      // axios
-      //   .put(`/api/todos/${item.id}/`, item)
-      //   .then(res => this.refreshList());
+      console.log("updating job:" ,job)
+      axios
+        .put(`/api/job/${job.id}/`, job)
+        .then(res => this.renderJobs())
+        .catch(err => console.log(err));
       return;
     }
-    console.log("no job found for" ,job)
-    // axios
-    //   .post("/api/todos/", item)
-    //   .then(res => this.refreshList());
+    // generate a random unique requisition id
+    // if(job.department === 1 || job.department === "Product"){
+    //   var dep = job.department.name.substring(0, 4)
+    // } else {
+    //   var dep = job.department.name.substring(0, 2)
+    // }
+    var dep = "mk"
+    var unique_id = Date.now()
+    job.req_id = dep.toUpperCase().concat(unique_id)
+    console.log("the job is:" ,job)
+    axios
+      .post("http://localhost:8000/api/job/", job)
+      .then(res => console.log("res.data is:" , res.data))
+      .catch(err => console.log(err));
   };
 
   createJob = () => {
@@ -193,7 +212,7 @@ class Jobs extends Component {
       title: "",
       description: "",
       hiring_team: [],
-      department: "",
+      department: null,
       req_id: "",
       status: null,
       created_by: this.props.user_id,
@@ -247,6 +266,7 @@ class Jobs extends Component {
           toggle={this.toggle}
           onSave={this.handleSubmit}
           employees={this.props.employees}
+          departments={this.props.departments}
         />
       ) : null}
       </main>

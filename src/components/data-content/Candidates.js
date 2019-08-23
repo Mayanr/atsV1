@@ -44,7 +44,7 @@ class Candidates extends Component {
             <ul>
                 <li key={c.id}>
                    {c.id}.) { c.applicant.first_name } - email: { c.applicant.email }
-                   <a className="linkText" href={c.resume} target="_blank">view resume</a>
+                   <a className="linkText" href={c.resume} target="_blank" rel="noopener noreferrer">view resume</a>
                 </li>
             </ul>
         ))

@@ -3,6 +3,8 @@ from django.shortcuts import render, HttpResponse
 from rest_framework import viewsets
 from .serializers import *
 from .models import *
+# from rest_framework.decorators import action
+
 
 class IndustryView(viewsets.ModelViewSet):
     serializer_class = IndustrySerializer
@@ -19,7 +21,7 @@ class RoleView(viewsets.ModelViewSet):
 class EmployeeView(viewsets.ModelViewSet):
     serializer_class = EmployeeSerializer
     queryset = Employee.objects.all()
-    print(queryset)
+    # print(queryset)
 
 class DepartmentView(viewsets.ModelViewSet):
     serializer_class = DepartmentSerializer
@@ -32,6 +34,15 @@ class Job_StatusView(viewsets.ModelViewSet):
 class JobView(viewsets.ModelViewSet):
     serializer_class = JobSerializer
     queryset = Job.objects.all()
+    
+    # def post(self, request):
+    #     obj = Job.objects.get(id=request.job.id)
+    #     serializer = JobSerializer(obj, data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_200_OK)
+    #     else:
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 def AllCompanyJobsView(self, c_id):
     listOfJobs = []

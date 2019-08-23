@@ -36,14 +36,16 @@ class Dashboard extends Component {
                 // updated_at: ""
             ],
             candidates:[],
-            employees: []
+            employees: [],
+            departments: []
         };
       }
 
     
     // retreive data from api
     componentDidMount() {
-        this.employeeAccount(this.state.user_id)   
+        this.employeeAccount(this.state.user_id);
+        this.get_departments(); 
     }
     employeeAccount = (userID) => {
     axios.get(`/api/employee/${userID}/`)
@@ -119,6 +121,16 @@ class Dashboard extends Component {
             }))
             .catch(err => console.log(err));
     }
+
+    get_departments = () => {
+        axios.get(`/api/department`)
+        .then(res=>
+            this.setState({
+                departments: res.data
+                })
+            )
+        .catch(err => console.log(err));
+    }
     // renderJobs=() => {
     //     return this.state.jobs.map(job => <li key={job.id}>{job.title} </li>)
     // }
@@ -129,7 +141,7 @@ class Dashboard extends Component {
         console.log("candidates in render function", this.state.candidates)
         console.log("employees in render function", this.state.employees)
 
-        const { jobs, candidates, co_id, user_id, employees } = this.state
+        const { jobs, candidates, co_id, user_id, employees, departments } = this.state
         return(
             <Router>
             <div id="dashboard">
@@ -149,6 +161,7 @@ class Dashboard extends Component {
                             co_id = {co_id} 
                             user_id={user_id} 
                             employees={employees}
+                            departments={departments}
                         />}
                     />
                     {/* <Route path = "/dashboard"  component={Jobs} /> */}

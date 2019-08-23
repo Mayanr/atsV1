@@ -21,6 +21,7 @@ from ATS_v1 import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 router = routers.DefaultRouter()
 router.register(r'industry', views.IndustryView, 'Industry') 
 router.register(r'company', views.CompanyView, 'Company') 
@@ -38,6 +39,6 @@ router.register(r'interview', views.InterviewView, 'Interview')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
-    url(r'^api/jobs/(?P<c_id>\d+)$', views.AllCompanyJobsView)
+    path('api/', include(router.urls))
+    # url(r'^api/jobs/(?P<c_id>\d+)$', views.AllCompanyJobsView)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

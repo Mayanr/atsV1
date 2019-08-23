@@ -17,7 +17,7 @@ class JobModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          activeJob: this.props.activeJob
+          activeJob: this.props.activeJob,
         };
     }
 
@@ -28,9 +28,16 @@ class JobModal extends Component {
             value = parseInt(e.target.id, 10);
         }
         if (e.target.multiple === true){
-            console.log("multiple select:" , name, value);
+            // console.log("multiple select:" , name, value);
             value = [...e.target.options].filter(({selected}) => selected).map(({value}) => parseInt(value))
-            console.log( [...e.target.options].filter(({selected}) => selected))
+            // console.log( [...e.target.options].filter(({selected}) => selected))
+        }
+        if(e.target.name === "department"){
+            console.log(typeof parseInt(value))
+            value = parseInt(value)
+            // var val = JSON.parse(value)
+            // console.log(JSON.stringify(value.replace(/\"/g, "")))
+            // value = JSON.stringify(value.name)
         }
         const activeJob = { ...this.state.activeJob, [name]: value };
         this.setState({ activeJob });
@@ -46,6 +53,18 @@ class JobModal extends Component {
                 selected={activeJob.hiring_team.includes(employee.id) && true}
                 >
                     {employee.first_name} {employee.last_name}
+            </option>
+        ))
+    }
+
+    list_departments = () => {
+        const { departments } = this.props
+        console.log(departments)
+        return departments.map(dep => (
+            <option 
+                key={dep.id} 
+                value={dep.id}>
+                    {dep.name}
             </option>
         ))
     }
@@ -66,19 +85,20 @@ class JobModal extends Component {
                   <Input
                     type="select"
                     name="department"
-                    value={this.state.activeJob.department.name}
+                    value={this.state.activeJob.department}
                     onChange={this.handleChange}
                     required
                     >
                     <option value=""></option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="HR">HR</option>
+                    {this.list_departments()}
+                    {/* <option value="Marketing">Marketing</option>
                     <option value="Engineering">Engineering</option>
-                    <option value="Legal">Legal</option>
-                    <option value="Sales">Sales</option>
-                    <option value="Product">Product</option>
-                    <option value="Administrative">Administrative</option>
-                    <option value="Finance">Finance</option>
+                    <option value="HR">HR</option>
+                    <option value="">Legal</option>
+                    <option value="">Sales</option>
+                    <option value="">Product</option>
+                    <option value="">Administrative</option>
+                    <option value="">Finance</option> */}
                   </Input>
                 </FormGroup>
                 <FormGroup>
